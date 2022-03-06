@@ -1,18 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { HomePage } from './pages/home/home.page';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  public appPages = [
-    { title: 'Inbox', url: '/folder/Inbox', icon: 'mail' },
-    { title: 'Outbox', url: '/folder/Outbox', icon: 'paper-plane' },
-    { title: 'Favorites', url: '/folder/Favorites', icon: 'heart' },
-    { title: 'Archived', url: '/folder/Archived', icon: 'archive' },
-    { title: 'Trash', url: '/folder/Trash', icon: 'trash' },
-    { title: 'Spam', url: '/folder/Spam', icon: 'warning' },
-  ];
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-  constructor() {}
+
+  pages: Array<{ title: string; component: string }>;
+
+  constructor(private route: Router) {
+    // used for an example of ngFor and navigation
+    this.pages = [
+      { title: 'Login', component: 'homePage' }
+    ];
+  }
+
+  openPage(page): void {
+    // Reset the content nav to have just this page
+    // we wouldn't want the back button to show in this scenario
+    // this.route.navigateByUrl(page.component);
+    this.route.navigateByUrl(page.component);
+    console.log('chamando a página', page);
+  }
 }
