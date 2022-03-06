@@ -4,7 +4,7 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
     
-    <ion-title>Sistema</ion-title>
+    <ion-title>Sistema de pedidos</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -15,17 +15,17 @@
       <ion-card-title class="ion-text-center">Vídeos App</ion-card-title>
 
       <ion-item lines="none" color="dark">
-        <ion-label position="floating">E-mail</ion-label>
+        <ion-label position="floating" stacked>E-mail</ion-label>
         <ion-input type="email" [(ngModel)]="email"></ion-input>
       </ion-item>
 
       <ion-item lines="none" color="dark">
-        <ion-label position="floating">Senha</ion-label>
+        <ion-label position="floating" stacked>Senha</ion-label>
         <ion-input type="password" [(ngModel)]="senha"></ion-input>
       </ion-item>
 
-      <ion-button (click)="login()" expand="full" fill="outline" color="light">Entrar</ion-button>
-      <ion-button expand="full" fill="clear" color="light">Registrar</ion-button>
+      <ion-button block (click)="login()" expand="full" fill="outline" color="light">Entrar</ion-button>
+      <ion-button block outline expand="full" fill="clear" color="light">Registrar</ion-button>
 
     </ion-card>
   </div>
