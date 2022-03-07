@@ -7,6 +7,13 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <p>Página de Categorias</p>
+<ion-content padding>
+  <ion-list *ngIf="items22">
+    <ion-item-sliding *ngFor="let item of items">
+      <ion-thumbnail item-start>
+        <img src="{{bucketUrl}}/cat{{item.id}}.jpg">
+      </ion-thumbnail>
+      <h2> {{ item.nome }} </h2>      
+    </ion-item-sliding>
+  </ion-list>
 </ion-content>
