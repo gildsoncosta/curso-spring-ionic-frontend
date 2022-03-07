@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-categorias',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CategoriasPage implements OnInit {
 
-  constructor() { }
+  constructor(public menuCtrl: MenuController) { }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
+    this.menuCtrl.close();
   }
 
 }

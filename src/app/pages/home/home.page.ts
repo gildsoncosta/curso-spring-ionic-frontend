@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NavController, ToastController } from '@ionic/angular';
+import { MenuController, NavController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -11,10 +11,23 @@ export class HomePage implements OnInit {
   email: string;
   senha: string;
 
-  constructor(public toastController: ToastController, private route: Router) { }
+  constructor(public toastController: ToastController, private route: Router, public menuCtrl: MenuController) { }
 
   ngOnInit() {
   }
+
+  ionViewWillEnter() {
+    this.menuCtrl.close();
+  }
+
+  /** Próximos dois métodos serve p abrir esta pagina desabilitando/ Habilitando o menu, tirei pq aqui eu quero manter */
+  /*ionViewWillEnter() {
+    this.menuCtrl.enable(false);
+  }
+
+  ionViewDidLeave() {
+    this.menuCtrl.enable(true);
+  }*/
 
   login() {
     if (this.email === 'admin@admin.com' && this.senha === 'admin') {
