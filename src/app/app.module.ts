@@ -11,16 +11,18 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
+import { CategoriaService } from 'src/services/domain/categoria.service';
 
 registerLocaleData(localePt);
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
+  imports: [BrowserModule, HttpClientModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
   providers: [
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
     { provide: LOCALE_ID, useValue: 'pt-BR' },
+    CategoriaService
   ],
   bootstrap: [AppComponent],
 })
