@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { NavController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -21,7 +21,9 @@ export class HomePage implements OnInit {
       this.route.navigateByUrl('/tabs/tab1');
       this.presentToast('Seja bem vindo', 'success');
     } else {
-      this.presentToast('Erro, usuário ou senha inválidos', 'danger');
+      //this.presentToast('Erro, usuário ou senha inválidos', 'danger');
+      console.log('chamando a página', 'CategoriasPage');
+      this.route.navigateByUrl('categorias');
     }
   }
 

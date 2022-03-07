@@ -9,9 +9,9 @@
     
       <ion-content>
         <ion-list>
-          <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+          <ion-item menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
             {{p.title}}
-          </button>
+          </ion-item>
         </ion-list>
       </ion-content>
     </ion-menu>
