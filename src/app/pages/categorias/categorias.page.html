@@ -22,8 +22,8 @@
         <!-- (click)="exibirFilme(filme)"-->
 
         <ion-thumbnail slot="start">
-          <img *ngIf="bucketUrl+'/'+cat+item.id.jpg" src="{{bucketUrl}}/cat{{item.id}}.jpg"/>
-          <ion-icon *ngIf="bucketUrl/cat+item.id.jpg" name="alert-circle-outline"></ion-icon>
+          <img *ngIf="'cat'+item.id.jpg" src="{{bucketUrl}}/cat{{item.id}}.jpg"/>
+          <ion-icon *ngIf="!'cat'+item.id.jpg" name="alert-circle-outline"></ion-icon>
         </ion-thumbnail>
 
         <ion-label class="ion-text-wrap">

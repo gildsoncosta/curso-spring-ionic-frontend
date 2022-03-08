@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController, NavController, ToastController } from '@ionic/angular';
+import { CredenciaisDTO } from 'src/models/credenciais.dto';
 
 @Component({
   selector: 'app-home',
@@ -10,6 +11,11 @@ import { MenuController, NavController, ToastController } from '@ionic/angular';
 export class HomePage implements OnInit {
   email: string;
   senha: string;
+
+  creds: CredenciaisDTO = {
+    email: '',
+    senha: ''
+  };
 
   constructor(public toastController: ToastController, private route: Router, public menuCtrl: MenuController) { }
 
@@ -30,6 +36,7 @@ export class HomePage implements OnInit {
   }*/
 
   login() {
+    console.log(this.creds);
     if (this.email === 'admin@admin.com' && this.senha === 'admin') {
       this.route.navigateByUrl('/tabs/tab1');
       this.presentToast('Seja bem vindo', 'success');
