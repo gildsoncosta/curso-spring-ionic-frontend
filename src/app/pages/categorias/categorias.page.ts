@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController } from '@ionic/angular';
+import { AlertController, MenuController, ToastController } from '@ionic/angular';
 import { API_CONFIG } from 'src/config/api.config';
 import { CategoriaDTO } from 'src/models/categoria.dto';
 import { CategoriaService } from 'src/services/domain/categoria.service';
@@ -15,7 +15,10 @@ export class CategoriasPage implements OnInit {
 
   items: CategoriaDTO[];
 
-  constructor(public menuCtrl: MenuController, public categoriaService: CategoriaService) { }
+  constructor(public menuCtrl: MenuController,
+     public categoriaService: CategoriaService,
+     public toastController: ToastController,
+     public alertController: AlertController) { }
 
   ngOnInit() {
   }
@@ -28,9 +31,41 @@ export class CategoriasPage implements OnInit {
       this.items = response;
       console.log(response);
     },
-    error => {
-      console.log(error);
+    error => {});
+  }
+
+  async exibirAlertaFavorito() {
+    const alert = await this.alertController.create({
+      header: 'Alerta !',
+      message: 'Deseja realmente favoritar o filme ?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          id: 'cancel-button',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Sim favoritar',
+          id: 'confirm-button',
+          handler: () => {
+            this.apresentarToast();
+          }
+        }
+      ]
     });
+
+    await alert.present();
+  }
+
+  async apresentarToast() {
+    const toast = await this.toastController.create({
+      message: 'Filme adicionado aos favoritos',
+      duration: 2000,
+      color: 'success'
+    });
+    toast.present();
   }
 
 }

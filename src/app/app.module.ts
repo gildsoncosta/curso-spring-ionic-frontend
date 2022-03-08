@@ -12,6 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { CategoriaService } from 'src/services/domain/categoria.service';
+import { ErrorInterceptorProvider } from 'src/interceptors/error-interceptor';
 
 registerLocaleData(localePt);
 
@@ -22,7 +23,8 @@ registerLocaleData(localePt);
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
     { provide: LOCALE_ID, useValue: 'pt-BR' },
-    CategoriaService
+    CategoriaService,
+    ErrorInterceptorProvider
   ],
   bootstrap: [AppComponent],
 })
