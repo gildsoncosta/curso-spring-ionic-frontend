@@ -14,6 +14,7 @@ import localePt from '@angular/common/locales/pt';
 import { CategoriaService } from 'src/services/domain/categoria.service';
 import { ErrorInterceptorProvider } from 'src/interceptors/error-interceptor';
 import { AuthService } from 'src/services/domain/auth.service';
+import { StorageService } from 'src/services/domain/storage.service';
 
 registerLocaleData(localePt);
 
@@ -26,7 +27,8 @@ registerLocaleData(localePt);
     { provide: LOCALE_ID, useValue: 'pt-BR' },
     CategoriaService,
     ErrorInterceptorProvider,
-    AuthService
+    AuthService,
+    StorageService
   ],
   bootstrap: [AppComponent],
 })

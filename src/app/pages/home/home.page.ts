@@ -43,7 +43,7 @@ export class HomePage implements OnInit {
 
     this.auth.authenticate(this.creds)
       .subscribe(response => {
-        console.log(response.headers.get('Authorization'));
+        this.auth.successfulLogin(response.headers.get('Authorization'));
         this.route.navigateByUrl('categorias');
       },
       error => {});
