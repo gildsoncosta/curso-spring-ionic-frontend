@@ -14,6 +14,7 @@ export class AppComponent {
   constructor(private route: Router) {
     // used for an example of ngFor and navigation
     this.pages = [
+      { title: 'Profile', component: 'profile' },
       { title: 'Login', component: 'homePage' },
       { title: 'Categorias', component: 'categorias' }
     ];

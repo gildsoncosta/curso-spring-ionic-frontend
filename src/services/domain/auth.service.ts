@@ -11,7 +11,7 @@ export class AuthService {
 
     jwtHelper: JwtHelperService = new JwtHelperService();
 
-    constructor(public http: HttpClient, public storage: StorageService) {}
+    constructor(public http: HttpClient, public storage: StorageService) { }
 
     authenticate(creds: CredenciaisDTO) {
         return this.http.post(
@@ -26,13 +26,14 @@ export class AuthService {
     successfulLogin(authorizationValue: string) {
         // eslint-disable-next-line prefer-const
         let tok = authorizationValue.substring(7);
+
         // eslint-disable-next-line prefer-const
         let user: LocalUser = {
             token: tok,
-            email: this.jwtHelper.decodeToken(tok)
+            email: this.jwtHelper.decodeToken(tok).sub,
         };
         this.storage.setLocalUser(user);
-        console.log(user.email.substring.toString);
+        console.log(user.email);
     }
 
     logout() {

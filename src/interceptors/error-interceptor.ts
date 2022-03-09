@@ -3,7 +3,6 @@ import { HttpInterceptor, HttpEvent,HttpHandler,HttpRequest, HttpErrorResponse, 
 import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { ToastController } from '@ionic/angular';
-import { error } from 'protractor';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
