@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController, NavController, ToastController } from '@ionic/angular';
+import { error } from 'console';
 import { CredenciaisDTO } from 'src/models/credenciais.dto';
+import { AuthService } from 'src/services/domain/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +20,7 @@ export class HomePage implements OnInit {
     senha: ''
   };
 
-  constructor(public toastController: ToastController, private route: Router, public menuCtrl: MenuController) { }
+  constructor(public toastController: ToastController, private route: Router, public menuCtrl: MenuController, public auth: AuthService) { }
 
   ngOnInit() {
   }
@@ -37,15 +40,23 @@ export class HomePage implements OnInit {
 
   login() {
     console.log(this.creds);
-    if (this.email === 'admin@admin.com' && this.senha === 'admin') {
+
+    this.auth.authenticate(this.creds)
+      .subscribe(response => {
+        console.log(response.headers.get('Authorization'));
+        this.route.navigateByUrl('categorias');
+      },
+      error => {});
+    }
+
+    /*if (this.email === 'admin@admin.com' && this.senha === 'admin') {
       this.route.navigateByUrl('/tabs/tab1');
       this.presentToast('Seja bem vindo', 'success');
     } else {
       //this.presentToast('Erro, usuário ou senha inválidos', 'danger');
       console.log('chamando a página', 'CategoriasPage');
       this.route.navigateByUrl('categorias');
-    }
-  }
+    }*/
 
   async presentToast(texto: string, cor: string) {
     const toast = await this.toastController.create({
