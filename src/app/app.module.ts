@@ -16,6 +16,7 @@ import { ErrorInterceptorProvider } from 'src/interceptors/error-interceptor';
 import { AuthService } from 'src/services/domain/auth.service';
 import { StorageService } from 'src/services/domain/storage.service';
 import { ClienteService } from 'src/services/domain/cliente.service';
+import { AuthInterceptorProvider } from 'src/interceptors/auth-interceptor';
 
 registerLocaleData(localePt);
 
@@ -27,6 +28,7 @@ registerLocaleData(localePt);
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
     { provide: LOCALE_ID, useValue: 'pt-BR' },
     CategoriaService,
+    AuthInterceptorProvider,
     ErrorInterceptorProvider,
     AuthService,
     StorageService,

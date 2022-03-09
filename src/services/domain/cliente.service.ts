@@ -15,12 +15,12 @@ export class ClienteService {
         }
         findByEmail(email: string): Observable<ClienteDTO> {
             // eslint-disable-next-line prefer-const
-            let token = this.storage.getLocalUser().token;
-            const authHeader = new HttpHeaders({'Authorization': 'Bearer ' + token});
+            //let token = this.storage.getLocalUser().token;
+            //const authHeader = new HttpHeaders({'Authorization': 'Bearer ' + token});
 
-            return this.http.get<ClienteDTO>(`${API_CONFIG.baseUrl}/clientes/email?value=${email}`,
+            return this.http.get<ClienteDTO>(`${API_CONFIG.baseUrl}/clientes/email?value=${email}`);
             // eslint-disable-next-line quote-props
-            {'headers': authHeader});
+            //{'headers': authHeader});
         }
 
         getImageFromBucket(id: string): Observable<any> {
