@@ -45,7 +45,11 @@ export class HomePage implements OnInit {
         this.auth.successfulLogin(response.headers.get('Authorization'));
         this.route.navigateByUrl('categorias');
       },
-      error => {});
+      error => {
+        if (error.status === 403) {
+          this.route.navigateByUrl('folder/:id');
+        }
+      });
     }
 
     /*if (this.email === 'admin@admin.com' && this.senha === 'admin') {

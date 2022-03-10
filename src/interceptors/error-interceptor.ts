@@ -3,11 +3,13 @@ import { HttpInterceptor, HttpEvent,HttpHandler,HttpRequest, HttpErrorResponse, 
 import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { ToastController } from '@ionic/angular';
+import { StorageService } from 'src/services/domain/storage.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-  constructor(public toastController: ToastController) { }
+  constructor(public toastController: ToastController, public storage: StorageService, private route: Router) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
       console.log('passou no intercept');
@@ -18,7 +20,17 @@ export class ErrorInterceptor implements HttpInterceptor {
     }
 
     async exiberErroIntercept(erro) {
+
       let errorObj = erro;
+
+      switch(errorObj.status) {
+        case 403:
+          this.handle403();
+          break;
+      }
+
+      console.log('exibir error-interceptor ', errorObj.status, errorObj.message);
+
       if (errorObj.error){
         errorObj = errorObj.error;
       }
@@ -26,14 +38,24 @@ export class ErrorInterceptor implements HttpInterceptor {
         errorObj = JSON.parse(errorObj);
       }
 
+      this.apresentarToast();
+
+      this.route.navigateByUrl('folder/Inbox');
+
+      return null;
+    }
+
+    handle403() {
+      this.storage.setLocalUser(null);
+    }
+
+    async apresentarToast() {
       const toast = await this.toastController.create({
-        message: errorObj.message,
+        message: 'Erro ao acessar página',
         duration: 2000,
-        color: 'danger',
-        position: 'middle'
+        color: 'success'
       });
       toast.present();
-      return null;
     }
 }
 

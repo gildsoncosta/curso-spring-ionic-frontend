@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MenuController, NavController, NavParams } from '@ionic/angular';
 import { API_CONFIG } from 'src/config/api.config';
 import { ClienteDTO } from 'src/models/cliente.dto';
@@ -18,7 +19,8 @@ export class ProfilePage implements OnInit {
     public navCtrl: NavController,
     public storage: StorageService,
     public menuCtrl: MenuController,
-    public clienteService: ClienteService) { }
+    public clienteService: ClienteService,
+    private route: Router) { }
 
   ngOnInit() {
   }
@@ -37,7 +39,14 @@ export class ProfilePage implements OnInit {
 
           console.log(response, 'cadê email: '+localUser.email);
         },
-        error => {});
+        error => {
+            console.log('erro ao entrar em profile status', error.status);
+            this.route.navigateByUrl('folder/Inbox');
+        });
+    }
+    else {
+      console.log('erro ao entrar em profile localUser', localUser);
+      this.route.navigateByUrl('folder/Inbox');
     }
   }
 
