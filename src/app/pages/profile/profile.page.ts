@@ -37,7 +37,7 @@ export class ProfilePage implements OnInit {
           this.cliente = response;
           this.getImageIfExists();
 
-          console.log(response, 'cadê email: '+localUser.email);
+          console.log('response todo: ', response, 'cadê email em localUser: '+localUser.email);
         },
         error => {
             console.log('erro ao entrar em profile status', error.status);
@@ -46,7 +46,7 @@ export class ProfilePage implements OnInit {
     }
     else {
       console.log('erro ao entrar em profile localUser', localUser);
-      this.route.navigateByUrl('folder/Inbox');
+      this.route.navigateByUrl('homePage');
     }
   }
 

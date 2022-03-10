@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MenuController, NavController, ToastController } from '@ionic/angular';
 import { CredenciaisDTO } from 'src/models/credenciais.dto';
 import { AuthService } from 'src/services/domain/auth.service';
+import { StorageService } from 'src/services/domain/storage.service';
 
 @Component({
   selector: 'app-home',
@@ -19,13 +20,35 @@ export class HomePage implements OnInit {
     senha: ''
   };
 
-  constructor(public toastController: ToastController, private route: Router, public menuCtrl: MenuController, public auth: AuthService) { }
+  constructor(
+     public toastController: ToastController,
+     private route: Router,
+     public menuCtrl: MenuController,
+     public auth: AuthService,
+     public storage: StorageService) { }
 
   ngOnInit() {
   }
 
   ionViewWillEnter() {
     this.menuCtrl.close();
+  }
+
+  ionViewDidEnter(){
+    const localUser = this.storage.getLocalUser();
+
+    if (localUser && localUser.email) { {}
+      this.auth.refreshToken()
+        .subscribe(response => {
+          this.auth.successfulLogin(response.headers.get('Authorization'));
+          this.route.navigateByUrl('categorias');
+        },
+        error => {
+          if (error.status === 403) {
+            this.route.navigateByUrl('folder/Inbox');
+          }
+        });
+      }
   }
 
   /** Próximos dois métodos serve p abrir esta pagina desabilitando/ Habilitando o menu, tirei pq aqui eu quero manter */
@@ -47,7 +70,7 @@ export class HomePage implements OnInit {
       },
       error => {
         if (error.status === 403) {
-          this.route.navigateByUrl('folder/:id');
+          this.route.navigateByUrl('folder/Inbox');
         }
       });
     }

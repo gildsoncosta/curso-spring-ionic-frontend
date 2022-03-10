@@ -23,6 +23,17 @@ export class AuthService {
             });
     }
 
+    refreshToken() {
+        console.log('entrei no refresh_Token');
+        return this.http.post(
+            `${API_CONFIG.baseUrl}/auth/refresh_token`,
+            {},
+            {
+                observe: 'response',
+                responseType: 'text'
+            });
+    }
+
     successfulLogin(authorizationValue: string) {
         // eslint-disable-next-line prefer-const
         let tok = authorizationValue.substring(7);

@@ -12,6 +12,7 @@ import { CategoriaService } from 'src/services/domain/categoria.service';
 export class CategoriasPage implements OnInit {
 
   bucketUrl: string = API_CONFIG.bucketBaseUrl;
+  bucketUrlCat: string = API_CONFIG.bucketBaseUrl+'/cat';
 
   items: CategoriaDTO[];
 

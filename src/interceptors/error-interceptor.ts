@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpEvent,HttpHandler,HttpRequest, HttpErrorResponse, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpInterceptor, HttpEvent,HttpHandler,HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { ToastController } from '@ionic/angular';
@@ -24,9 +24,14 @@ export class ErrorInterceptor implements HttpInterceptor {
       let errorObj = erro;
 
       switch(errorObj.status) {
+        case 401:
+          this.handle401();
+          break;
         case 403:
           this.handle403();
           break;
+        default:
+          this.handleDefaultError(errorObj);
       }
 
       console.log('exibir error-interceptor ', errorObj.status, errorObj.message);
@@ -38,22 +43,31 @@ export class ErrorInterceptor implements HttpInterceptor {
         errorObj = JSON.parse(errorObj);
       }
 
-      this.apresentarToast();
-
       this.route.navigateByUrl('folder/Inbox');
 
       return null;
     }
 
-    handle403() {
+    handle401(){
       this.storage.setLocalUser(null);
+      this.apresentarToast('Erro de autentificação ');
     }
 
-    async apresentarToast() {
+    handle403() {
+      this.storage.setLocalUser(null);
+      this.apresentarToast('Erro ao acessar página ');
+    }
+
+    handleDefaultError(errorObj) {
+      this.apresentarToast('Erro' + errorObj.status + ': ' + errorObj.erro + ': ' + errorObj.message);
+    }
+
+    async apresentarToast(msg: string) {
       const toast = await this.toastController.create({
-        message: 'Erro ao acessar página',
-        duration: 2000,
-        color: 'success'
+        message: msg,
+        duration: 3000,
+        color: 'success',
+        position: 'middle'
       });
       toast.present();
     }
