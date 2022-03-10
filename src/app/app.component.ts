@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 import { AuthService } from 'src/services/domain/auth.service';
 import { StorageService } from 'src/services/domain/storage.service';
 import { HomePage } from './pages/home/home.page';
@@ -13,37 +14,31 @@ export class AppComponent {
 
   pages: Array<{ title: string; component: string }>;
 
-  constructor(private route: Router, public auth: AuthService, public storage: StorageService) {
+  constructor(private route: Router, public auth: AuthService) {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Profile', component: 'profile' },
       { title: 'Login', component: 'homePage' },
-      { title: 'Categorias', component: 'categorias' }
+      { title: 'Categorias', component: 'categorias' },
+      { title: 'Logout', component: '' }
     ];
   }
 
-  ionViewDidEnter(){
-    const localUser = this.storage.getLocalUser();
-
-    if (localUser && localUser.email) { {}
-      this.auth.refreshToken()
-        .subscribe(response => {
-          this.auth.successfulLogin(response.headers.get('Authorization'));
-          this.route.navigateByUrl('categorias');
-        },
-        error => {
-          if (error.status === 403) {
-            this.route.navigateByUrl('folder/Inbox');
-          }
-        });
-      }
-  }
-
-  openPage(page): void {
+  // eslint-disable-next-line @typescript-eslint/member-delimiter-style
+  openPage(page: { title: string , component: string}) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     // this.route.navigateByUrl(page.component);
-    this.route.navigateByUrl(page.component);
+    switch (page.title) {
+      case 'Logout':
+        this.auth.logout();
+        this.route.navigateByUrl('folder/Inbox');
+        break;
+
+      default:
+        this.route.navigateByUrl(page.component);
+    }
+
     console.log('chamando a página', page);
   }
 }
