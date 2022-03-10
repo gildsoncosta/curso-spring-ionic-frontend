@@ -75,6 +75,10 @@ export class HomePage implements OnInit {
       });
     }
 
+    signaup() {
+      this.route.navigateByUrl('signup');
+    }
+
     /*if (this.email === 'admin@admin.com' && this.senha === 'admin') {
       this.route.navigateByUrl('/tabs/tab1');
       this.presentToast('Seja bem vindo', 'success');
