@@ -9,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding  lines="none" color="dark">
+<ion-content padding lines="none" color="dark">
   <form [formGroup]="formGroup" (ngSubmit)="signupUser(); $event.preventDefault()">
     <ion-item>
       <ion-label position="floating" stacked>Nome*</ion-label>
@@ -20,20 +20,20 @@
       <ion-input formControlName="email" type="text"></ion-input>
     </ion-item>
 
-    
-    <ion-list position="floating" >
+
+    <ion-list position="floating">
       <ion-radio-group formControlName="tipo">
         <ion-list-header>
           <ion-label>
             Tipo do Cliente
           </ion-label>
         </ion-list-header>
-    
+
         <ion-item>
           <ion-label>Pessoa física</ion-label>
           <ion-radio value="1"></ion-radio>
         </ion-item>
-    
+
         <ion-item>
           <ion-label>Pessoa jurídica</ion-label>
           <ion-radio value="2"></ion-radio>
@@ -83,18 +83,17 @@
       <ion-input formControlName="telefone3" type="text"></ion-input>
     </ion-item>
 
-    <ion-item position="floating" >
-      <ion-label>Estador*</ion-label>
+    <ion-item>
+      <ion-label>Estado*</ion-label>
       <ion-select formControlName="estadoId" (ionChange)="updateCidades()">
-        <ion-select-option value="1">Minas Gerais</ion-select-option>
-        <ion-select-option value="2">São Paulo</ion-select-option>
+        <ion-select-option *ngFor="let estado of estados; first as f" [value]="estado.id">{{estado.nome}}
+        </ion-select-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label>Cidade*</ion-label>
       <ion-select formControlName="cidadeId">
-        <ion-select-option value="1">Uberlândia</ion-select-option>
-        <ion-select-option value="2">Campinas</ion-select-option>
+        <ion-select-option *ngFor="let cidade of cidades" [value]="cidade.id">{{cidade.nome}}</ion-select-option>
       </ion-select>
     </ion-item>
     <ion-button block type="submit" expand="full" fill="outline" color="light">Criar conta</ion-button>
