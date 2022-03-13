@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { takeWhile } from 'rxjs/operators';
 import { CidadeDTO } from 'src/models/cidade.dto';
 import { EstadoDTO } from 'src/models/estado.dto';
 import { CidadeService } from 'src/services/domain/cidade.services';
+import { ClienteService } from 'src/services/domain/cliente.service';
 import { EstadoService } from 'src/services/domain/estado.service';
 
 @Component({
@@ -24,7 +26,9 @@ export class SignupPage implements OnInit {
     public formBuilder: FormBuilder,
     public cidadeService: CidadeService,
     public estadoService: EstadoService,
-    private route: Router) {
+    private route: Router,
+    public clienteService: ClienteService,
+    public alertCtrl: AlertController) {
 
     this.formGroup = this.formBuilder.group({
       nome: ['Joaquim', [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
@@ -68,11 +72,35 @@ export class SignupPage implements OnInit {
       .subscribe(response => {
         this.cidades = response;
         this.formGroup.controls.cidadeId.setValue(null);
-      });
+      },
+        error => { });
   }
 
   signupUser() {
-    console.log('Enviou o Formulário');
+    console.log(this.formGroup.value);
+    this.clienteService.insert(this.formGroup.value)
+      .subscribe(response => {
+        this.showInsertOk();
+      },
+        error => { });
   }
 
+  async showInsertOk() {
+    const alert = await this.alertCtrl.create({
+      header: 'Sucesso !',
+      message: 'Cadastro efetuado com sucesso',
+      backdropDismiss: false,
+      buttons: [
+        {
+          text: 'Ok',
+          id: 'confirm-button',
+          handler: () => {
+            this.route.navigateByUrl('folder/Inbox');
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
 }
