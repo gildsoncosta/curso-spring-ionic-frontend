@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AlertController, MenuController, ToastController } from '@ionic/angular';
 import { API_CONFIG } from 'src/config/api.config';
 import { CategoriaDTO } from 'src/models/categoria.dto';
@@ -19,7 +20,8 @@ export class CategoriasPage implements OnInit {
   constructor(public menuCtrl: MenuController,
      public categoriaService: CategoriaService,
      public toastController: ToastController,
-     public alertController: AlertController) { }
+     public alertController: AlertController,
+     private route: Router,) { }
 
   ngOnInit() {
   }
@@ -33,6 +35,10 @@ export class CategoriasPage implements OnInit {
       console.log(response);
     },
     error => {});
+  }
+
+  showProdutos() {
+    this.route.navigateByUrl('produtos');
   }
 
   async exibirAlertaFavorito() {
