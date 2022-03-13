@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { API_CONFIG } from 'src/config/api.config';
 
@@ -17,7 +18,7 @@ export class ProdutoService {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     findByCategoria(categoriaId: string) {
         console.log('findByCategoria(categoriaId: string)', categoriaId);
-        return this.http.get(`${API_CONFIG.baseUrl}/produtoshh/?categorias=${categoriaId}`);
+        return this.http.get(`${API_CONFIG.baseUrl}/produtos/?categorias=${categoriaId}`);
     }
 
     // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -27,5 +28,10 @@ export class ProdutoService {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     getCategoria_id() {
         return this.categoria_id;
+    }
+
+    getSmallImageFromBucket(id: string): Observable<any> {
+        const url = `${API_CONFIG.bucketBaseUrl}/prod${id}-small.jpg`;
+        return this.http.get(url, {responseType : 'blob'});
     }
 }

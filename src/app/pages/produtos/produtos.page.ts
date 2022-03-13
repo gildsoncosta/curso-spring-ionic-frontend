@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavParams } from '@ionic/angular';
 import { takeWhile } from 'rxjs/operators';
+import { API_CONFIG } from 'src/config/api.config';
 import { ProdutoDTO } from 'src/models/produto.dto';
 import { ProdutoService } from 'src/services/domain/produto.service';
 
@@ -31,7 +32,7 @@ export class ProdutosPage implements OnInit {
       .subscribe(params => {
         // Defaults to 0 if no query param provided.
         this.page = +params['page'] || 0;
-        console.log('params',  this.page);
+        console.log('params', this.page);
       });
 
 
@@ -41,8 +42,21 @@ export class ProdutosPage implements OnInit {
       .subscribe(response => {
         // eslint-disable-next-line @typescript-eslint/dot-notation
         this.items = response['content'];
+        this.loadImageUrls();
       },
         error => { this.route.navigateByUrl('categorias'); });
+  }
+
+  loadImageUrls() {
+    // eslint-disable-next-line @typescript-eslint/prefer-for-of
+    for (let i = 0; i < this.items.length; i++) {
+      const item = this.items[i];
+      this.produtoService.getSmallImageFromBucket(item.id)
+        .subscribe(response => {
+          item.imageUrl = `${API_CONFIG.bucketBaseUrl}/prod${item.id}-small.jpg`;
+        },
+          error => { });
+    }
   }
 
   /* this.items = [
