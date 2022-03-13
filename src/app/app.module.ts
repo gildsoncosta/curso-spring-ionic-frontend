@@ -17,6 +17,7 @@ import { AuthService } from 'src/services/domain/auth.service';
 import { StorageService } from 'src/services/domain/storage.service';
 import { ClienteService } from 'src/services/domain/cliente.service';
 import { AuthInterceptorProvider } from 'src/interceptors/auth-interceptor';
+import { ProdutoService } from 'src/services/domain/produto.service';
 
 registerLocaleData(localePt);
 
@@ -32,7 +33,8 @@ registerLocaleData(localePt);
     ErrorInterceptorProvider,
     AuthService,
     StorageService,
-    ClienteService
+    ClienteService,
+    ProdutoService
   ],
   bootstrap: [AppComponent],
 })

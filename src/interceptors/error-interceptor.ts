@@ -88,7 +88,7 @@ export class ErrorInterceptor implements HttpInterceptor {
   }
 
   handleDefaultError(errorObj) {
-    this.apresentarToast('Erro' + errorObj.status + ': ' + errorObj.erro + ': ' + errorObj.message);
+    this.apresentarToast('Erro default:  ' + errorObj.status + ': ' + errorObj.erro + ': ' + errorObj.message);
   }
 
   async apresentarToast(msg: string) {
