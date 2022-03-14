@@ -57,7 +57,10 @@ export class ProdutosPage implements OnInit {
     }
   }
 
-  showDetail() {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  showDetail(produto_id: string) {
+    this.produtoService.setProduto_id(produto_id);
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     this.route.navigateByUrl('produto-detail');
   }
 }
