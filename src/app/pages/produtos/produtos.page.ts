@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/dot-notation */
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NavParams } from '@ionic/angular';
-import { takeWhile } from 'rxjs/operators';
 import { API_CONFIG } from 'src/config/api.config';
 import { ProdutoDTO } from 'src/models/produto.dto';
 import { ProdutoService } from 'src/services/domain/produto.service';
@@ -59,16 +57,7 @@ export class ProdutosPage implements OnInit {
     }
   }
 
-  /* this.items = [
-      {
-        id: '1',
-        nome: 'Mouse',
-        preco: 80.99
-      },
-      {
-        id: '2',
-        nome: 'Teclado',
-        preco: 80.99
-      }
-    ];*/
+  showDetail() {
+    this.route.navigateByUrl('produto-detail');
+  }
 }
