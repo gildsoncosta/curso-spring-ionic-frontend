@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -7,11 +8,6 @@ import { ProdutoDTO } from 'src/models/produto.dto';
 
 @Injectable()
 export class ProdutoService {
-
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    private categoria_id: string;
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    private produto_id: string;
 
     constructor(public http: HttpClient, private router: Router) {
 
@@ -24,7 +20,7 @@ export class ProdutoService {
 
     // eslint-disable-next-line @typescript-eslint/naming-convention
     findByCategoria(categoriaId: string) {
-        console.log('findByCategoria(categoriaId: string)', categoriaId);
+        //console.log('findByCategoria(categoriaId: string)', categoriaId);
         return this.http.get(`${API_CONFIG.baseUrl}/produtos/?categorias=${categoriaId}`);
     }
 
@@ -36,23 +32,5 @@ export class ProdutoService {
     getImageFromBucket(id: string): Observable<any> {
         const url = `${API_CONFIG.bucketBaseUrl}/prod${id}.jpg`;
         return this.http.get(url, {responseType : 'blob'});
-    }
-
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    setCategoria_id(categoria_id: string) {
-        this.categoria_id = categoria_id;
-    }
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    getCategoria_id() {
-        return this.categoria_id;
-    }
-
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    setProduto_id(produto_id: string) {
-        this.produto_id = produto_id;
-    }
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    getProduto_id() {
-        return this.produto_id;
     }
 }

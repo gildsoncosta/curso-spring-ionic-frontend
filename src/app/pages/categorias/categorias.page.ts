@@ -24,8 +24,7 @@ export class CategoriasPage implements OnInit {
      public categoriaService: CategoriaService,
      public toastController: ToastController,
      public alertController: AlertController,
-     private route: Router,
-     private produtoService: ProdutoService) { }
+     private route: Router) { }
 
   ngOnInit() {
   }
@@ -42,13 +41,7 @@ export class CategoriasPage implements OnInit {
   }
 
   showProdutos(categoriaId: string) {
-    this.produtoService.setCategoria_id(categoriaId);
-    console.log('categoriaId em categorias.page.ts', categoriaId);
-    this.route.navigateByUrl('produtos');
-    //const url = '/produtos?categoriaId='+categoriaId;
-    //this.route.navigateByUrl(url);
-    //this.route.navigate(['produtos'], { queryParams: { categorioaId: categoriaId } });
-    //this.route.navigate(['/produtos'], { queryParams: { page: '1' } });
+    this.route.navigate(['produtos', {categoria_id: categoriaId}]);
   }
 
   async exibirAlertaFavorito() {

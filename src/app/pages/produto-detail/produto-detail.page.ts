@@ -1,7 +1,9 @@
+/* eslint-disable no-underscore-dangle */
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { API_CONFIG } from 'src/config/api.config';
 import { ProdutoDTO } from 'src/models/produto.dto';
+import { CartService } from 'src/services/domain/cart.service';
 import { ProdutoService } from 'src/services/domain/produto.service';
 
 @Component({
@@ -16,17 +18,20 @@ export class ProdutoDetailPage implements OnInit {
   // eslint-disable-next-line @typescript-eslint/naming-convention
   private produto_id: string;
 
-  constructor(private route: Router, public produtoService: ProdutoService) { }
+  constructor(
+    private route: Router,
+    public produtoService: ProdutoService,
+    private _router: ActivatedRoute,
+    public cartService: CartService) { }
 
   ngOnInit() {
   }
 
   ionViewDidEnter() {
-    this.produto_id = this.produtoService.getProduto_id();
-    console.log('this.produtoService.getProduto_id()', this.produto_id);
+    //console.log('this._router.snapshot.paramMap: ',this._router.snapshot.paramMap);
+    this.produto_id = this._router.snapshot.paramMap.get('produto_id');
     this.produtoService.findById(this.produto_id)
       .subscribe(response => {
-        // eslint-disable-next-line @typescript-eslint/dot-notation
         this.item = response;
         this.getImageUrlIfExists();
       },
@@ -39,5 +44,10 @@ export class ProdutoDetailPage implements OnInit {
       this.item.imageUrl = `${API_CONFIG.bucketBaseUrl}/prod${this.item.id}.jpg`;
     },
     error =>{});
+  }
+
+  addToCart(produto: ProdutoDTO) {
+    this.cartService.addProduto(produto);
+    this.route.navigateByUrl('cart');
   }
 }

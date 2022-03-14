@@ -1,3 +1,6 @@
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable quote-props */
 /* eslint-disable @typescript-eslint/dot-notation */
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,29 +19,18 @@ export class ProdutosPage implements OnInit {
   items: ProdutoDTO[];
   parametros: string[];
 
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   private categoria_id: string;
 
-  constructor(private route: Router, public produtoService: ProdutoService, private route2: ActivatedRoute) { }
+  constructor(private route: Router, public produtoService: ProdutoService, private _router: ActivatedRoute) { }
 
   ngOnInit() {
   }
 
   ionViewDidEnter() {
-    this.sub = this.route2
-      .paramMap
-      .subscribe(params => {
-        // Defaults to 0 if no query param provided.
-        this.page = +params['page'] || 0;
-        console.log('params', this.page);
-      });
-
-
-    this.categoria_id = this.produtoService.getCategoria_id();
-    console.log('this.produtoService.getCategoria_id()', this.categoria_id);
+    this.categoria_id = this._router.snapshot.paramMap.get('categoria_id');
+    //console.log('this._router.snapshot.paramMap.get: ', this.categoria_id);
     this.produtoService.findByCategoria(this.categoria_id)
       .subscribe(response => {
-        // eslint-disable-next-line @typescript-eslint/dot-notation
         this.items = response['content'];
         this.loadImageUrls();
       },
@@ -57,10 +49,7 @@ export class ProdutosPage implements OnInit {
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  showDetail(produto_id: string) {
-    this.produtoService.setProduto_id(produto_id);
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    this.route.navigateByUrl('produto-detail');
+  showDetail(produtoId: string) {
+    this.route.navigate(['produto-detail', {produto_id: produtoId}]);
   }
 }
