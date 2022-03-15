@@ -57,7 +57,11 @@ export class CartPage implements OnInit {
   total(): number {
     return this.cartService.total();
   }
-  comprarMais() {
+  comprarMais() { // era p chamar de goOn()
     this.route.navigateByUrl('categorias');
   }
+  checkout(){
+    this.route.navigateByUrl('pick-adress');
+  }
+
 }

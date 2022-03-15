@@ -5,7 +5,6 @@ import { AlertController, MenuController, ToastController } from '@ionic/angular
 import { API_CONFIG } from 'src/config/api.config';
 import { CategoriaDTO } from 'src/models/categoria.dto';
 import { CategoriaService } from 'src/services/domain/categoria.service';
-import { ProdutoService } from 'src/services/domain/produto.service';
 
 @Component({
   selector: 'app-categorias',
@@ -20,7 +19,8 @@ export class CategoriasPage implements OnInit {
 
   items: CategoriaDTO[];
 
-  constructor(public menuCtrl: MenuController,
+  constructor(
+     public menuCtrl: MenuController,
      public categoriaService: CategoriaService,
      public toastController: ToastController,
      public alertController: AlertController,

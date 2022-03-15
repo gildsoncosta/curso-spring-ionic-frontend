@@ -17,6 +17,7 @@ export class AppComponent {
   constructor(private route: Router, public auth: AuthService) {
     // used for an example of ngFor and navigation
     this.pages = [
+      { title: 'Principal', component: 'folder/Inbox' },
       { title: 'Profile', component: 'profile' },
       { title: 'Login', component: 'homePage' },
       { title: 'Categorias', component: 'categorias' },
@@ -40,6 +41,6 @@ export class AppComponent {
         this.route.navigateByUrl(page.component);
     }
 
-    console.log('chamando a página', page);
+    //console.log('chamando a página', page);
   }
 }
