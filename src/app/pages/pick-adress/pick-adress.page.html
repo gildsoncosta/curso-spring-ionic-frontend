@@ -20,7 +20,7 @@
       <p color="">Selecione um endereço</p>
     </ion-list-header>
 
-    <ion-item-sliding *ngFor="let item of items">
+    <ion-item-sliding *ngFor="let item of items" (click)="nextPage(item)">
 
       <ion-item lines="full">
         <ion-label class="ion-text-wrap">

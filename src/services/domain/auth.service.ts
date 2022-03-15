@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { API_CONFIG } from 'src/config/api.config';
@@ -49,7 +50,9 @@ export class AuthService {
         };
         this.storage.setLocalUser(user);
         //console.log(user.email);
-        this.cartService.createOrClearCart();
+        this.cartService.createOrClearCart();// tem que analizar esse situação, não quero zerar o carrinho ao fazer login,
+        //quero exigir login ao confirmar o pedido, e ao fazer login ou entrar no app verificar carrinho pendendo e deletar
+        //caso tennha mais de uma, duas ou três horas "a definir".
     }
 
     logout() {
