@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 import { API_CONFIG } from 'src/config/api.config';
 import { CartItem } from 'src/models/cart-items';
 import { ProdutoDTO } from 'src/models/produto.dto';
@@ -16,6 +17,7 @@ export class CartPage implements OnInit {
   items: CartItem[];
 
   constructor(
+    public menuCtrl: MenuController,
     public cartService: CartService,
     public produtoService: ProdutoService,
     private route: Router ) { }
@@ -24,6 +26,8 @@ export class CartPage implements OnInit {
   }
 
   ionViewDidEnter() {
+    this.menuCtrl.close();
+
     const cart = this.cartService.getCart();
     this.items = cart.items;
     this.loadImageUrls();

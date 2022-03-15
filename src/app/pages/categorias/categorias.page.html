@@ -1,16 +1,24 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="dark">
     <ion-buttons slot="start">
-      <!--<ion-back-button color="danger"></ion-back-button>-->
+      <ion-back-button color="danger"></ion-back-button>
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>categorias</ion-title>
+    <!--<ion-buttons slot="end">
+      <ion-icon slot="end" ios="ellipsis-horizontal" md="cart-outline"></ion-icon>
+    </ion-buttons>-->
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" color="light">
-  <ion-list *ngIf="items">
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button color="dark" routerLink='/cart'>
+      <ion-icon name="cart-sharp"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
+  <ion-list *ngIf="items">
     <ion-item lines="none" *ngIf="items.length === 0">
       <ion-label class="ion-text-center">
         Não há categorias para exibir .....
@@ -20,10 +28,8 @@
     <ion-item-sliding *ngFor="let item of items" (click)="showProdutos(item.id)">
 
       <ion-item lines="full">
-        <!-- (click)="exibirFilme(filme)"-->
-
         <ion-thumbnail slot="start">
-          <img *ngIf="'cat'+item.id.jpg" src="{{bucketUrl}}/cat{{item.id}}.jpg"/>
+          <img *ngIf="'cat'+item.id.jpg" src="{{bucketUrl}}/cat{{item.id}}.jpg" />
           <ion-icon *ngIf="!'cat'+item.id.jpg" name="alert-circle-outline"></ion-icon>
         </ion-thumbnail>
 

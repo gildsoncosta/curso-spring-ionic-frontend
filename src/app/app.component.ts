@@ -20,6 +20,7 @@ export class AppComponent {
       { title: 'Profile', component: 'profile' },
       { title: 'Login', component: 'homePage' },
       { title: 'Categorias', component: 'categorias' },
+      { title: 'Carrinho', component: 'cart'},
       { title: 'Logout', component: '' }
     ];
   }
