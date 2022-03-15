@@ -1,6 +1,10 @@
+/* eslint-disable @typescript-eslint/dot-notation */
 /* eslint-disable @typescript-eslint/quotes */
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { EnderecoDTO } from 'src/models/endereco.dto';
+import { ClienteService } from 'src/services/domain/cliente.service';
+import { StorageService } from 'src/services/domain/storage.service';
 
 @Component({
   selector: 'app-pick-adress',
@@ -11,46 +15,31 @@ export class PickAdressPage implements OnInit {
 
   items: EnderecoDTO[];
 
-  constructor() { }
+  constructor(
+    public storage: StorageService,
+    public clienteService: ClienteService,
+    public route: Router) { }
 
   ngOnInit() {
   }
 
   ionViewDidEnter() {
-    this.items = [
-      {
-        id: "1",
-        logradouro: "Rua Quinze de Novembro",
-        numero: "300",
-        complemento: "Apto 200",
-        bairro: "Santa Mônica",
-        cep: "48293822",
-        cidade: {
-          id: "1",
-          nome: "Ubelândia",
-          estado: {
-            id:"1",
-            nome: "Minas Gerais"
-          }
-        }
-      },
-      {
-        id: "2",
-        logradouro: "Rua Alexandre Toledo da Silva",
-        numero: "405",
-        complemento: "null",
-        bairro: "Centro",
-        cep: "88933822",
-        cidade: {
-          id: "3",
-          nome: "São Paulo",
-          estado: {
-            id:"2",
-            nome: "São Paulo"
-          }
-        }
-      }
-    ];
+    const localUser = this.storage.getLocalUser();
+    if (localUser && localUser.email) {
+      //console.log('mostrando email em ionViewDidEnter: ', localUser.email);
+      //this.email = JSON.stringify(localUser.email);
+      this.clienteService.findByEmail(localUser.email)
+        .subscribe(response => {
+          //console.log(response);
+          this.items = response['enderecos'];
+        },
+        error => {
+            this.route.navigateByUrl('folder/Inbox');
+        });
+    }
+    else {
+      this.route.navigateByUrl('homePage');
+    }
   }
 
 }

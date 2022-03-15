@@ -13,12 +13,12 @@ export class ClienteService {
     constructor(public http: HttpClient, public storage: StorageService) {
 
     }
-    findByEmail(email: string): Observable<ClienteDTO> {
+    findByEmail(email: string) {
         // eslint-disable-next-line prefer-const
         //let token = this.storage.getLocalUser().token;
         //const authHeader = new HttpHeaders({'Authorization': 'Bearer ' + token});
 
-        return this.http.get<ClienteDTO>(`${API_CONFIG.baseUrl}/clientes/email?value=${email}`);
+        return this.http.get(`${API_CONFIG.baseUrl}/clientes/email?value=${email}`);
         // eslint-disable-next-line quote-props
         //{'headers': authHeader});
     }

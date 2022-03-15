@@ -34,7 +34,7 @@ export class ProfilePage implements OnInit {
       //this.email = JSON.stringify(localUser.email);
       this.clienteService.findByEmail(localUser.email)
         .subscribe(response => {
-          this.cliente = response;
+          this.cliente = response as ClienteDTO;
           this.getImageIfExists();
 
           console.log('response todo: ', response, 'cadê email em localUser: '+localUser.email);
