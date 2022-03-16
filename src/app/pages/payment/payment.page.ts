@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/quotes */
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NavParams } from '@ionic/angular';
 import { PedidoDTO } from 'src/models/pedido.dto';
 
@@ -22,7 +22,8 @@ export class PaymentPage implements OnInit {
 
   constructor(
     public formBuilder: FormBuilder,
-    private _router: ActivatedRoute) {
+    private _router: ActivatedRoute,
+    private route: Router) {
 
       this.formGroup = this.formBuilder.group({
         numeroDeParcelas: [1, Validators.required],
@@ -43,6 +44,9 @@ export class PaymentPage implements OnInit {
   nextPage(){
     this.pedido.pagamento = this.formGroup.value;
     console.log('nextPage em payment.page: ', this.pedido);
+    if (this.pedido) {
+      this.route.navigate(['orderconfirmation', {ped: JSON.stringify(this.pedido)}]);
+    }
   }
 
 }

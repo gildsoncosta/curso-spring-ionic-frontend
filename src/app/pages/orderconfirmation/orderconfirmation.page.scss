@@ -1,0 +1,43 @@
+.noLinebreak {
+    float: left;
+    padding-right: 10px;
+}
+
+ion-content {
+    background: #000000;
+    text-align: center;
+}
+
+ion-item {
+
+    --padding-start: 10px;
+    --inner-padding-end: 10px;
+
+    ion-thumbnail {
+        margin-inline-end: 10px;
+        
+        ion-icon {
+            font-size: 48px;
+            color: #dcdcdc;
+        }
+    }
+
+    h1{
+        font-weight: bold;
+        font-size:  12px;
+    }
+    h2{
+        font-weight: bold;
+        font-size:  14px;
+    }
+    p{
+        font-size: 12px;
+        color: #38633d;
+    }
+
+    p+p{
+        color: #8a8a8a;
+        font-size:  12px;
+        
+    }
+}

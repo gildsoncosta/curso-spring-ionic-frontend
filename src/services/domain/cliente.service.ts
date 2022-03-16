@@ -23,6 +23,10 @@ export class ClienteService {
         //{'headers': authHeader});
     }
 
+    findById(id: string) {
+        return this.http.get(`${API_CONFIG.baseUrl}/clientes/${id}`);
+    }
+
     getImageFromBucket(id: string): Observable<any> {
         const url = `${API_CONFIG.bucketBaseUrl}/cp${id}.jpg`;
         return this.http.get(url, { responseType: 'blob' });
