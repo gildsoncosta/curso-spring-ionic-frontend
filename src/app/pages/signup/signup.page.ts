@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { takeWhile } from 'rxjs/operators';
 import { CidadeDTO } from 'src/models/cidade.dto';
 import { EstadoDTO } from 'src/models/estado.dto';
 import { CidadeService } from 'src/services/domain/cidade.services';

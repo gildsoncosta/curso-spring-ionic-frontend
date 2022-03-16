@@ -20,6 +20,7 @@ import { AuthInterceptorProvider } from 'src/interceptors/auth-interceptor';
 import { ProdutoService } from 'src/services/domain/produto.service';
 import { CartService } from 'src/services/domain/cart.service';
 import { PickAdressPage } from './pages/pick-adress/pick-adress.page';
+import { PaymentPage } from './pages/payment/payment.page';
 
 registerLocaleData(localePt);
 
@@ -37,8 +38,7 @@ registerLocaleData(localePt);
     StorageService,
     ClienteService,
     ProdutoService,
-    CartService,
-    PickAdressPage
+    CartService
   ],
   bootstrap: [AppComponent],
 })
