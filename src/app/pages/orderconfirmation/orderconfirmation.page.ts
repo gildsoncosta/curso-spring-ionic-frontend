@@ -22,6 +22,7 @@ export class OrderconfirmationPage implements OnInit {
   cartItems: CartItem[];
   cliente: ClienteDTO;
   endereco: EnderecoDTO;
+  codpedido: string;
 
   constructor(
     public route: Router,
@@ -59,8 +60,12 @@ export class OrderconfirmationPage implements OnInit {
     return this.cartService.total();
   }
 
-  back() {
+  backPedido() {
     this.route.navigateByUrl('cart');
+  }
+
+  backCategorias() {
+    this.route.navigateByUrl('categorias');
   }
 
   checkout() {
@@ -68,11 +73,18 @@ export class OrderconfirmationPage implements OnInit {
     .subscribe(response => {
       this.cartService.createOrClearCart();
       console.log(response.headers.get('location'));
+      this.codpedido = this.extractId(response.headers.get('location'));
+      console.log(this.codpedido);
     },
     error => {
       if (error.status === 403) {
         this.route.navigateByUrl('homePage');
       }
     });
+  }
+
+  private extractId(location: string): string {
+    const position = location.lastIndexOf('/');
+    return location.substring(position + 1, location.length);
   }
 }
