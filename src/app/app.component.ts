@@ -1,9 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuController } from '@ionic/angular';
 import { AuthService } from 'src/services/domain/auth.service';
-import { StorageService } from 'src/services/domain/storage.service';
-import { HomePage } from './pages/home/home.page';
 
 @Component({
   selector: 'app-root',

@@ -9,6 +9,7 @@ import { EnderecoDTO } from 'src/models/endereco.dto';
 import { PedidoDTO } from 'src/models/pedido.dto';
 import { CartService } from 'src/services/domain/cart.service';
 import { ClienteService } from 'src/services/domain/cliente.service';
+import { PedidoService } from 'src/services/domain/pedido.service';
 
 @Component({
   selector: 'app-orderconfirmation',
@@ -26,7 +27,8 @@ export class OrderconfirmationPage implements OnInit {
     public route: Router,
     private _router: ActivatedRoute,
     public cartService: CartService,
-    public clienteService: ClienteService) {
+    public clienteService: ClienteService,
+    public pedidoService: PedidoService) {
 
     console.log('Construtor orderconfirmation.page:', this._router.snapshot.paramMap['params']['ped']);
     this.pedido = JSON.parse(this._router.snapshot.paramMap['params']['ped']);
@@ -55,5 +57,22 @@ export class OrderconfirmationPage implements OnInit {
 
   total() {
     return this.cartService.total();
+  }
+
+  back() {
+    this.route.navigateByUrl('cart');
+  }
+
+  checkout() {
+    this.pedidoService.insert(this.pedido)
+    .subscribe(response => {
+      this.cartService.createOrClearCart();
+      console.log(response.headers.get('location'));
+    },
+    error => {
+      if (error.status === 403) {
+        this.route.navigateByUrl('homePage');
+      }
+    });
   }
 }
