@@ -34,13 +34,17 @@ export class ProdutosPage implements OnInit {
   }
 
   ionViewDidEnter() {
+    this.loadData();
+  }
+
+  loadData() {
     let loader = this.presentLoading();
     this.categoria_id = this._router.snapshot.paramMap.get('categoria_id');
     //console.log('this._router.snapshot.paramMap.get: ', this.categoria_id);
     this.produtoService.findByCategoria(this.categoria_id)
       .subscribe(response => {
         this.items = response['content'];
-        //this.loadingController.dismiss();
+        this.loadingController.dismiss();
         this.loadImageUrls();
       },
         error => { this.route.navigateByUrl('categorias'); });
@@ -59,7 +63,7 @@ export class ProdutosPage implements OnInit {
   }
 
   showDetail(produtoId: string) {
-    this.route.navigate(['produto-detail', {produto_id: produtoId}]);
+    this.route.navigate(['produto-detail', { produto_id: produtoId }]);
   }
 
   async presentLoading() {
@@ -72,5 +76,13 @@ export class ProdutosPage implements OnInit {
     const { role, data } = await loader.onDidDismiss();
     //console.log('Loading dismissed!');
     return loader;
+  }
+
+  doRefresh(event) {
+    this.loadData();
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 1000);
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuController, NavController, NavParams } from '@ionic/angular';
+import { LoadingController, MenuController, NavController, NavParams } from '@ionic/angular';
 import { API_CONFIG } from 'src/config/api.config';
 import { ClienteDTO } from 'src/models/cliente.dto';
 import { ClienteService } from 'src/services/domain/cliente.service';
@@ -20,7 +20,8 @@ export class ProfilePage implements OnInit {
     public storage: StorageService,
     public menuCtrl: MenuController,
     public clienteService: ClienteService,
-    private route: Router) { }
+    private route: Router,
+    public loandingCtrl: LoadingController) { }
 
   ngOnInit() {
   }

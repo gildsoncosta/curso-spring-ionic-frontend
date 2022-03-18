@@ -30,6 +30,10 @@ export class CategoriasPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.loadData();
+  }
+
+  loadData() {
     this.menuCtrl.close();
 
     this.categoriaService.findAll()
@@ -76,6 +80,14 @@ export class CategoriasPage implements OnInit {
       color: 'success'
     });
     toast.present();
+  }
+
+  doRefresh(event) {
+    this.loadData();
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 1000);
   }
 
 }

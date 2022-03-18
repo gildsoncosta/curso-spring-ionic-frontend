@@ -67,7 +67,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   handle403() {
     this.storage.setLocalUser(null);
-    this.apresentarToast('Erro ao acessar página ');
+    //this.apresentarToast('Erro ao acessar página ');
   }
 
   async handle422(errorObj) {
