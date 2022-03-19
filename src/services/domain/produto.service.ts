@@ -19,9 +19,9 @@ export class ProdutoService {
     }
 
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    findByCategoria(categoriaId: string) {
+    findByCategoria(categoriaId: string, page: number = 0, linesPerPage: number = 24) {
         //console.log('findByCategoria(categoriaId: string)', categoriaId);
-        return this.http.get(`${API_CONFIG.baseUrl}/produtos/?categorias=${categoriaId}`);
+        return this.http.get(`${API_CONFIG.baseUrl}/produtos/?categorias=${categoriaId}&page=${page}&linesPerPage=${linesPerPage}`);
     }
 
     getSmallImageFromBucket(id: string): Observable<any> {

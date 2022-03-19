@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-inferrable-types */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable prefer-const */
 /* eslint-disable no-underscore-dangle */
@@ -19,8 +20,8 @@ import { ProdutoService } from 'src/services/domain/produto.service';
 export class ProdutosPage implements OnInit {
   [x: string]: any;
 
-  items: ProdutoDTO[];
-  parametros: string[];
+  items: ProdutoDTO[] = [];
+  page: number = 0;
 
   private categoria_id: string;
 
@@ -41,18 +42,22 @@ export class ProdutosPage implements OnInit {
     let loader = this.presentLoading();
     this.categoria_id = this._router.snapshot.paramMap.get('categoria_id');
     //console.log('this._router.snapshot.paramMap.get: ', this.categoria_id);
-    this.produtoService.findByCategoria(this.categoria_id)
+    this.produtoService.findByCategoria(this.categoria_id, this.page, 10)
       .subscribe(response => {
-        this.items = response['content'];
-        this.loadingController.dismiss();
-        this.loadImageUrls();
+        let start = this.items.length;
+        this.items = this.items.concat(response['content']);
+        let end = this.items.length - 1;
+        //this.loadingController.dismiss();
+        console.log(this.page);
+        console.log(this.items);
+        this.loadImageUrls(start, end);
       },
         error => { this.route.navigateByUrl('categorias'); });
   }
 
-  loadImageUrls() {
+  loadImageUrls(start: number, end: number) {
     // eslint-disable-next-line @typescript-eslint/prefer-for-of
-    for (let i = 0; i < this.items.length; i++) {
+    for (let i = start; i < end; i++) {
       const item = this.items[i];
       this.produtoService.getSmallImageFromBucket(item.id)
         .subscribe(response => {
@@ -79,10 +84,27 @@ export class ProdutosPage implements OnInit {
   }
 
   doRefresh(event) {
+    this.page = 0;
+    this.items = [];
     this.loadData();
     setTimeout(() => {
       console.log('Async operation has ended');
       event.target.complete();
     }, 1000);
+  }
+
+  doInfinite(event) {
+    this.page++;
+    this.loadData();
+    setTimeout(() => {
+      console.log('Done');
+      event.target.complete();
+
+      // App logic to determine if all data is loaded
+      // and disable the infinite scroll
+      /*if (data.length === 1000) {
+        event.target.disabled = true;
+      }*/
+    }, 500);
   }
 }
