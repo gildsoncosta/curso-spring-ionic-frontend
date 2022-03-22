@@ -7,14 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { ProfilePageRoutingModule } from './profile-routing.module';
 
 import { ProfilePage } from './profile.page';
+import { Camera } from '@awesome-cordova-plugins/camera';
 
 @NgModule({
+  declarations: [ProfilePage],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     ProfilePageRoutingModule
-  ],
-  declarations: [ProfilePage]
+  ]
 })
 export class ProfilePageModule {}

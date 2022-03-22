@@ -9,12 +9,33 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <div class="center">
-    <ion-avatar>
-      <img class="circle" [src]="cliente?.imageUrl || 'assets/avatar-blank.png'">
-    </ion-avatar>
-    <h2 text-center>{{ cliente?.nome }}</h2>
-    <p text-center>{{ cliente?.email }}</p>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-avatar>
+    <img class="circle" [src]="cliente?.imageUrl || 'assets/avatar-blank.png'">
+  </ion-avatar>
+  <h2 text-center>{{ cliente?.nome }}</h2>
+  <p text-center>{{ cliente?.email }}</p>
+
+  <div id="app">
+    <div><video #video id="video" width="640" height="480" autoplay></video></div>
+    <div><button id="snap" (click)="capture()">Snap Photo</button></div>
+    <canvas #canvas id="canvas" width="640" height="480"></canvas>
+    <ul>
+      <li *ngFor="let c of captures">
+        <img src="{{ c }}" height="50" />
+      </li>
+    </ul>
   </div>
+
+  <!--   <ion-card>
+      <ion-card-header>
+        Enviar imagem de perfil
+      </ion-card-header>
+      <ion-item *ngIf="picuture">
+        <img [src]="picuture">
+      </ion-item>
+      <ion-item>
+        <ion-button expand="full" fill="outline" (click)="takePicture()" [disabled="cameraOn"]>Camera</ion-button>
+      </ion-item>
+    </ion-card>-->
 </ion-content>

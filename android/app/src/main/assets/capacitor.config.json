@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "CursoSpringIonic",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

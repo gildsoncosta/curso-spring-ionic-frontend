@@ -51,7 +51,7 @@ export class AuthService {
         this.storage.setLocalUser(user);
         //console.log(user.email);
         this.cartService.createOrClearCart();// tem que analizar esse situação, não quero zerar o carrinho ao fazer login,
-        //quero exigir login ao confirmar o pedido, e ao fazer login ou entrar no app verificar carrinho pendendo e deletar
+        //quero exigir login ao confirmar o pedido, e ao fazer login ou entrar no app verificar carrinho pendente e deletar
         //caso tennha mais de uma, duas ou três horas "a definir".
     }
 
