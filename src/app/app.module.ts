@@ -22,6 +22,7 @@ import { ProdutoService } from 'src/services/domain/produto.service';
 import { CartService } from 'src/services/domain/cart.service';
 import { PedidoService } from 'src/services/domain/pedido.service';
 
+
 registerLocaleData(localePt);
 
 @NgModule({
@@ -30,7 +31,7 @@ registerLocaleData(localePt);
   imports: [BrowserModule, HttpClientModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
-    { provide: LOCALE_ID, useValue: 'pt-BR' },
+    { provide: LOCALE_ID, useValue: 'pt' },
     CategoriaService,
     AuthInterceptorProvider,
     ErrorInterceptorProvider,

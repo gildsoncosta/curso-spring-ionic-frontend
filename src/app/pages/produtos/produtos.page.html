@@ -7,17 +7,18 @@
 
     <ion-title>Produtos</ion-title>
   </ion-toolbar>
+  <ion-searchbar (ionChange)="buscarCategoriasProdutos($event)" placeholder="Buscar">
+  </ion-searchbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" color="light">
-
   <!-- Default Refresher -->
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
   <ion-fab vertical="top" horizontal="end" slot="fixed">
-    <ion-fab-button color="dark" routerLink='/cart'>
+    <ion-fab-button [color]="items.length > 0 ? 'success' : 'dark' " routerLink='/cart'>
       <ion-icon name="cart-sharp"></ion-icon>
     </ion-fab-button>
   </ion-fab>

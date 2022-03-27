@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable @typescript-eslint/no-inferrable-types */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable prefer-const */
@@ -22,6 +23,7 @@ export class ProdutosPage implements OnInit {
 
   items: ProdutoDTO[] = [];
   page: number = 0;
+  busca: string = "";
 
   private categoria_id: string;
 
@@ -38,9 +40,41 @@ export class ProdutosPage implements OnInit {
     this.loadData();
   }
 
+  buscarCategoriasProdutos(evento) {
+    let loader = this.presentLoading();
+    if (evento) {
+      if (evento.target) {
+        this.busca = evento.target.value;
+        this.items = [];
+        this.page = 0;
+      } else {
+        this.busca = evento;
+        this.items = [];
+        this.page = 0;
+      }
+    }
+
+    this.categoria_id = this._router.snapshot.paramMap.get('categoria_id');
+    //console.log('this._router.snapshot.paramMap.get: ', this.categoria_id);
+    this.produtoService.findByCategoria(this.busca, this.categoria_id, this.page, 10)
+      .subscribe(response => {
+        let start = this.items.length;
+        this.items = this.items.concat(response['content']);
+        let end = this.items.length - 1;
+        //this.loadingController.dismiss();
+        console.log(this.page);
+        console.log(this.items);
+        this.loadImageUrls(start, end);
+      },
+        error => { this.route.navigateByUrl('categorias'); });
+    loader.finally();
+
+  }
+
   loadData() {
     let loader = this.presentLoading();
-    this.categoria_id = this._router.snapshot.paramMap.get('categoria_id');
+    this.buscarCategoriasProdutos(this.busca);
+    /*this.categoria_id = this._router.snapshot.paramMap.get('categoria_id');
     //console.log('this._router.snapshot.paramMap.get: ', this.categoria_id);
     this.produtoService.findByCategoria(this.categoria_id, this.page, 10)
       .subscribe(response => {
@@ -53,6 +87,7 @@ export class ProdutosPage implements OnInit {
         this.loadImageUrls(start, end);
       },
         error => { this.route.navigateByUrl('categorias'); });
+    loader.finally();*/
   }
 
   loadImageUrls(start: number, end: number) {
@@ -75,7 +110,7 @@ export class ProdutosPage implements OnInit {
     const loader = await this.loadingController.create({
       cssClass: 'my-custom-class',
       message: 'Aguarde ...',
-      duration: 1500
+      duration: 1000
     });
     await loader.present();
     const { role, data } = await loader.onDidDismiss();

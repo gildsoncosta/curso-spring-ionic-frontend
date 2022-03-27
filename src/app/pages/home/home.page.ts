@@ -37,7 +37,7 @@ export class HomePage implements OnInit {
   ionViewDidEnter(){
     const localUser = this.storage.getLocalUser();
 
-    if (localUser && localUser.email) { {}
+    if (localUser && localUser.email) {
       this.auth.refreshToken()
         .subscribe(response => {
           this.auth.successfulLogin(response.headers.get('Authorization'));

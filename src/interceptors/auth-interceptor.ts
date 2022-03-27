@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpEvent,HttpHandler,HttpRequest, HttpErrorResponse, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
 import { ToastController } from '@ionic/angular';
 import { StorageService } from 'src/services/domain/storage.service';
 import { API_CONFIG } from 'src/config/api.config';

@@ -4,7 +4,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NavParams } from '@ionic/angular';
 import { PedidoDTO } from 'src/models/pedido.dto';
 
 @Component({

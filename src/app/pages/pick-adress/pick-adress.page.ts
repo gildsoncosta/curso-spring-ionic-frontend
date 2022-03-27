@@ -4,6 +4,7 @@
 /* eslint-disable @typescript-eslint/quotes */
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { stringify } from 'querystring';
 import { EnderecoDTO } from 'src/models/endereco.dto';
 import { PedidoDTO } from 'src/models/pedido.dto';
 import { CartService } from 'src/services/domain/cart.service';
@@ -40,18 +41,23 @@ export class PickAdressPage implements OnInit {
           //console.log(response);
           this.items = response['enderecos'];
 
-          const cart = this.cartService.getCart();
+
+          //const cart = this.cartService.getCart();
+          const cart = this.cartService.tempoLimiteItemPedido();
+          if (!cart.items) {
+            this.route.navigateByUrl('categorias');
+          }
 
           this.pedido = {
-            cliente:{id: response['id']},
+            cliente: { id: response['id'] },
             enderecoDeEntrega: null,
             pagamento: null,
-            itens: cart.items.map(x => {return {quantidade: x.quantidade, produto: {id: x.produto.id}}})
+            itens: cart.items.map(x => { return { quantidade: x.quantidade, produto: { id: x.produto.id } } })
           }
         },
-        error => {
+          error => {
             this.route.navigateByUrl('folder/Inbox');
-        });
+          });
     }
     else {
       this.route.navigateByUrl('homePage');
@@ -59,10 +65,8 @@ export class PickAdressPage implements OnInit {
   }
 
   nextPage(item: EnderecoDTO) {
-    this.pedido.enderecoDeEntrega = {id: item.id}
-    if (this.pedido) {
-      this.route.navigate(['payment', {ped: JSON.stringify(this.pedido)}]);
-    }
+    this.pedido.enderecoDeEntrega = { id: item.id }
+    this.route.navigate(['payment', { ped: JSON.stringify(this.pedido) }]);
   }
 
 }

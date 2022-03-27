@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/naming-convention */
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -19,9 +20,9 @@ export class ProdutoService {
     }
 
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    findByCategoria(categoriaId: string, page: number = 0, linesPerPage: number = 24) {
+    findByCategoria(nome: string, categoriaId: string, page: number = 0, linesPerPage: number = 24) {
         //console.log('findByCategoria(categoriaId: string)', categoriaId);
-        return this.http.get(`${API_CONFIG.baseUrl}/produtos/?categorias=${categoriaId}&page=${page}&linesPerPage=${linesPerPage}`);
+        return this.http.get(`${API_CONFIG.baseUrl}/produtos/?nome=${nome}&categorias=${categoriaId}&page=${page}&linesPerPage=${linesPerPage}`);
     }
 
     getSmallImageFromBucket(id: string): Observable<any> {

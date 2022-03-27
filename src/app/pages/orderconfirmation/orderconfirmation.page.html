@@ -38,7 +38,7 @@
       </ion-list>
     </ion-card>
 
-    <ion-card color="dark">
+    <ion-card color="dark" *ngIf="cliente">
       <ion-card-header>
         Cliente
       </ion-card-header>
@@ -64,7 +64,7 @@
       </ion-item>
     </ion-card>
 
-    <ion-card color="dark">
+    <ion-card color="dark" *ngIf="pedido">>
       <ion-card-header>
         Pagamento
       </ion-card-header>

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
+import { CartItem } from 'src/models/cart-items';
 import { AuthService } from 'src/services/domain/auth.service';
+import { CartService } from 'src/services/domain/cart.service';
 import { StorageService } from 'src/services/domain/storage.service';
 
 @Component({
@@ -12,11 +14,14 @@ import { StorageService } from 'src/services/domain/storage.service';
 export class FolderPage implements OnInit {
   public folder: string;
 
+  items: CartItem[];
+
   constructor(private activatedRoute: ActivatedRoute,
-     public auth: AuthService,
-     public storage: StorageService,
-     public menuCtrl: MenuController,
-     private route: Router) { }
+    public auth: AuthService,
+    public cartService: CartService,
+    public storage: StorageService,
+    public menuCtrl: MenuController,
+    private route: Router) { }
 
   ngOnInit() {
     this.folder = this.activatedRoute.snapshot.paramMap.get('id');
@@ -24,6 +29,8 @@ export class FolderPage implements OnInit {
 
   ionViewWillEnter() {
     this.menuCtrl.close();
+    const cart = this.cartService.tempoLimiteItemPedido();
+    this.items = cart.items;
   }
 
 
@@ -31,7 +38,6 @@ export class FolderPage implements OnInit {
     const localUser = this.storage.getLocalUser();
 
     if (localUser && localUser.email) {
-      { }
       this.auth.refreshToken()
         .subscribe(response => {
           this.auth.successfulLogin(response.headers.get('Authorization'));

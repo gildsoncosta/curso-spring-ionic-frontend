@@ -11,7 +11,7 @@
 
 <ion-content [fullscreen]="true">
   <ion-fab vertical="top" horizontal="end" slot="fixed">
-    <ion-fab-button color="dark" routerLink='/cart'>
+    <ion-fab-button [color]="item ? 'warning' : 'dark' " routerLink='/cart'>
       <ion-icon name="cart-sharp"></ion-icon>
     </ion-fab-button>
   </ion-fab>

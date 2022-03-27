@@ -1,0 +1,30 @@
+git remote -v
+git push heroku master
+git status
+git add .
+git commit -m "add config.ru file"
+java -Dserver.port=$PORT -Dspring.profiles.active=prod $JAVA_OPTS -jar target/cursomc-0.1.1-SNAPSHOT.jar
+heroku logs --tail
+heroku run printenv
+heroku status
+gradlew clean install
+heroku restart
+heroku config | grep CLEARDB_DATABASE_URL
+heroku config --help
+ionic integrations enable cordova
+ionic capacitor run cursoSpringIonic android -l
+ionic info
+ionic capacitor build browser
+ionic capacitor build android
+adb devices
+
+Sem verificação em duas etapas:
+Permita que aplicativos menos seguros acessem sua conta.
+Visite http://www.google.com/accounts/DisplayUnlockCaptcha e faça login com seu nome de usuário e senha do Gmail.
+
+
+Num computador, abra o Gmail.
+Na parte superior direita, clique em Definições Definições e, em seguida, Ver todas as definições.
+Clique no separador Encaminhamento e POP/IMAP.
+Na secção "Acesso IMAP", selecione Ativar IMAP.
+Clique em Guardar alterações.
